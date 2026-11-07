@@ -30,7 +30,7 @@ public class EmployeeController {
     }
 
 
-    //Добавить ещё надо обработки 200 , 201 и ещё чёта
+
     @PostMapping("/employees")
     @ResponseStatus(HttpStatus.CREATED)
     public Employee postEmployee(@Valid @RequestBody CreateEmployeeRequest request ) {
