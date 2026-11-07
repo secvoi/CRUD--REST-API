@@ -1,34 +1,60 @@
 package dev.manuchus.main.employee;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
+
+import jakarta.validation.Valid;
+
 
 @RestController
 public class EmployeeController {
 
-    private final List<Employee> data = new ArrayList<>();
 
+    private final EmployeeService employeeService;
+
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
+    
+    //Здесь перепревязать под PostgreSQL ну позже
     @GetMapping("/employees")
     public List<Employee> getEmployees() {
-        return data;
+        
+        return employeeService.getEmployees();
     }
+
 
     @PostMapping("/employees")
-    public Employee postEmployee(@RequestBody Employee employee) {
-        if (employee.name() == null || employee.name().isBlank()) {
-            throw new ResponseStatusException(
-                HttpStatus.BAD_REQUEST, "Name is required"
-            );
-        }
+    @ResponseStatus(HttpStatus.CREATED)
+    public Employee postEmployee(@Valid @RequestBody CreateEmployeeRequest request ) {
 
-        data.add(employee);
-        return employee;
+        return employeeService.create(request);
     }
+
+
+    @DeleteMapping("/employees/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteEmployeer(@PathVariable("id") int id)
+    {
+        employeeService.deleteEmployeer(id);
+    }    
+    
+    @GetMapping("/employees/{id}")
+    public Employee getMethodName(@PathVariable("id") int id) {
+        return employeeService.getEmployeer(id);
+    }
+    
+
+
+
+
 }
