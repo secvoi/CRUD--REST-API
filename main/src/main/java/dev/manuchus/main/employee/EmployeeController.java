@@ -2,10 +2,14 @@ package dev.manuchus.main.employee;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
 
 @RestController
 public class EmployeeController {
@@ -18,7 +22,7 @@ public class EmployeeController {
     }
 
     
-    //Здесь перепревязать под PostgreSQL ну позже
+    //Здесь перепревязать под PostgreSQL ну позжеы
     @GetMapping("/employees")
     public List<Employee> getEmployees() {
         
@@ -28,7 +32,8 @@ public class EmployeeController {
 
     //Добавить ещё надо обработки 200 , 201 и ещё чёта
     @PostMapping("/employees")
-    public Employee postEmployee(@RequestBody CreateEmployeeRequest request ) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public Employee postEmployee(@Valid @RequestBody CreateEmployeeRequest request ) {
 
         return employeeService.create(request);
     }

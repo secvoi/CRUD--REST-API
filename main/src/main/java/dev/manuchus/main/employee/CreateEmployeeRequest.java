@@ -1,33 +1,31 @@
 package dev.manuchus.main.employee;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 //добавить пару проверок на валидациюю данных
-public record CreateEmployeeRequest(String name, Position position) {
+public record CreateEmployeeRequest( 
+
+        // проверка поля name
+        @NotBlank(message="Name must be not blank")
+
+        @Pattern(regexp="[А-ЯЁ][а-яё]* [А-ЯЁ][а-яё]*",
+            message="Name must be format : first name last name"
+        )
+        String name,
+
+        // проверка поля position
+        @NotNull(message = "job title is must")
+        Position position){
 
     public CreateEmployeeRequest {
 
-        // проверка поля id
-
-     
-        // проверка поля name
-        
-        if(name == null || name.isBlank())
+        if(name != null)
         {
-            throw new IllegalArgumentException("Field must be not blank");
+            name = name.strip();
         }
-
-        name = name.strip();
-
-
-        if (!name.matches("[А-ЯЁ][а-яё]* [А-ЯЁ][а-яё]*")) {
-
-            throw new IllegalArgumentException("Field must contains letters , not Integer");
-        }
-
-        //проверка поля Position
-        if (position == null) {
-            throw new IllegalArgumentException("Position is required");
-        }
+     
     }
 
     
