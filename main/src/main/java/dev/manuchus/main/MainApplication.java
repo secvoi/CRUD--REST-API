@@ -3,6 +3,7 @@ package dev.manuchus.main;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/** Запускает Spring Boot приложение. */
 @SpringBootApplication
 public class MainApplication {
 

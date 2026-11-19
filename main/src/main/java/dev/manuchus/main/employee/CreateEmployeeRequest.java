@@ -5,9 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 
+/** Принимает и проверяет данные нового сотрудника. */
 public record CreateEmployeeRequest( 
 
-        // проверка поля name
         @NotBlank(message="Name must be not blank")
 
         @Pattern(regexp="[А-ЯЁ][а-яё]* [А-ЯЁ][а-яё]*",
@@ -15,7 +15,6 @@ public record CreateEmployeeRequest(
         )
         String name,
 
-        // проверка поля position
         @NotNull(message = "job title is must")
         Position position){
 

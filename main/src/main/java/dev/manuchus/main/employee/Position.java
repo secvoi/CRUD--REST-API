@@ -1,7 +1,7 @@
 package dev.manuchus.main.employee;
 
 
-// будто бы рудимент , пересмотреть
+/** Допустимые должности сотрудника. */
 public enum Position {
     C_DEVELOPER,
     PHP_DEVELOPER,

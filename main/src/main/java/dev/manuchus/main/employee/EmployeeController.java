@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 
+/** Обрабатывает HTTP-запросы сотрудников. */
 @RestController
 public class EmployeeController {
 
@@ -25,7 +26,6 @@ public class EmployeeController {
     }
 
     
-    //Здесь перепревязать под PostgreSQL ну позже
     @GetMapping("/employees")
     public List<Employee> getEmployees() {
         
